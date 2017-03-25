@@ -13,35 +13,45 @@ public class FastExponentiation {
 
     public BigInteger calculateFE(BigInteger e, BigInteger n, int character){
 
-        BigInteger k = BigInteger.valueOf(character);
-        BigInteger m = n;
-        int i = 0;
-        BigInteger h = ONE;
+        BigInteger base = BigInteger.valueOf(character);
+        BigInteger modulo = n;
+        BigInteger exponent = ZERO;
+        BigInteger result = ONE;
 
         String iBinary = e.toString(2);
 
         for (int j = 0; j < iBinary.length(); j++) {
-            if(iBinary.charAt(j) == '1') i++;
+            if(iBinary.charAt(j) == '1') exponent = exponent.add(ONE);
         }
 
-        while (i > 0){
 
-            System.out.println("i: " + i);
-            System.out.println("h: " + h);
-            System.out.println("k: " + k);
+        while (exponent.compareTo(ZERO) > 0){
+
+            System.out.println("exponent: " + exponent);
+            System.out.println("result: " + result);
+            System.out.println("base: " + base);
             System.out.println();
 
-            if ((i%2) == 1){
-                h = (h.multiply(k)).mod(m);
-            }
-            k = (k.multiply(k)).mod(m);
+            if (exponent.testBit(0)){
 
-            i--;
+                System.out.println("odd " + exponent);
+                System.out.println();
+                result = (result.multiply(base)).mod(modulo);
+            }
+            base = (base.multiply(base)).mod(modulo);
+
+            exponent = exponent.subtract(ONE);
         }
 
-        System.out.println(h);
-        System.out.println(k);
 
-        return h;
+
+        //  why do I have to do this????
+        //result = (result.multiply(base)).mod(modulo);
+        System.out.println("------------");
+        System.out.println("Result: " + result);
+        System.out.println("base: " + base);
+        System.out.println("------------");
+
+        return result;
     }
 }

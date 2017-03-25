@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.math.BigInteger;
+import java.util.Map;
 import java.util.Random;
 
 /**
@@ -12,22 +13,24 @@ import java.util.Random;
  */
 public class RSAKeygen {
 
-    final BigInteger n;
-    final BigInteger e = BigInteger.valueOf(65537);
+    BigInteger n;
+    BigInteger e = BigInteger.valueOf(65537);
     BigInteger d;
-    final BigInteger p;
-    final BigInteger q;
+    BigInteger p;
+    BigInteger q;
+
+    private final int bitlength = 1024;
 
     private final StringBuilder sbPrivate = new StringBuilder();
     private final StringBuilder sbPublic = new StringBuilder();
 
     RSAKeygen(){
         Random rnd = new Random();
-        p = BigInteger.probablePrime(1024, rnd);
-        BigInteger eTmp = BigInteger.probablePrime(1024, rnd);
+        p = BigInteger.probablePrime(bitlength, rnd);
+        BigInteger eTmp = BigInteger.probablePrime(bitlength, rnd);
 
         while(p.equals(eTmp)){
-            eTmp = BigInteger.probablePrime(1024,rnd);
+            eTmp = BigInteger.probablePrime(bitlength,rnd);
         }
 
         q = eTmp;
@@ -54,6 +57,8 @@ public class RSAKeygen {
         ExtendedEuclideanAlgorithm eea = new ExtendedEuclideanAlgorithm();
         d = eea.calculateEea(nTotient, e);
 
+        while(d.signum() == -1) d = d.add(nTotient);
+
         sbPrivate.append("(");
         sbPrivate.append(n.toString());
         sbPrivate.append(",");
@@ -66,25 +71,25 @@ public class RSAKeygen {
         sbPublic.append(e.toString());
         sbPublic.append(")");
 
-
-
-
-
     }
 
     public void writeKeysToFile(){
+        FileHandler fh = new FileHandler();
+        fh.writeFile(sbPrivate.toString(), "sk.txt");
+        fh.writeFile(sbPublic.toString(), "pk.txt");
+    }
 
-        try {
-            BufferedWriter bw = new BufferedWriter(new FileWriter("sk.txt"));
+    public void readPK(){
+        FileHandler fh = new FileHandler();
+        Map<String, BigInteger> pkMap= fh.getKeyFromFile("pk.txt");
+        this.n = pkMap.get("n");
+        this.e = pkMap.get("key");
+    }
 
-            bw.write(sbPrivate.toString());
-            bw.close();
-
-            bw = new BufferedWriter(new FileWriter("pk.txt"));
-            bw.write(sbPublic.toString());
-            bw.close();
-        } catch (IOException e1) {
-            e1.printStackTrace();
-        }
+    public void readSK() {
+        FileHandler fh = new FileHandler();
+        Map<String, BigInteger> skMap= fh.getKeyFromFile("sk.txt");
+        this.n = skMap.get("n");
+        this.d = skMap.get("key");
     }
 }

@@ -15,24 +15,21 @@ public class RSADecrypt {
         this.n = n;
     }
 
-
     public String decryptText(BigInteger[] encryptedText){
+
+        System.out.println("Decrypting... Might take a while.");
 
         FastExponentiation fe = new FastExponentiation();
         StringBuilder decryptedText = new StringBuilder();
 
-        System.out.println("Modulo: " + n);
-
         int j = 0;
         for(BigInteger i : encryptedText){
 
-            decryptedText.append((char) fe.calculateFE(d, n, i.intValue()).intValue());
+            decryptedText.append((char) fe.calculateFE(d, n, i).intValue());
             j++;
         }
 
-        System.out.println(decryptedText.toString());
-
-        return "";
+        return decryptedText.toString();
     }
 
 

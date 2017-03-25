@@ -1,6 +1,8 @@
 package RsaKeygen;
 
+import java.lang.reflect.Array;
 import java.math.BigInteger;
+import java.security.interfaces.RSAKey;
 
 /**
  * Created by fabianwildhaber on 24.03.17.
@@ -9,37 +11,39 @@ public class main {
 
     public static void main(String[] args) {
 
+        System.out.println("Starting RSA");
 
         RSAKeygen keygen = new RSAKeygen();
         FileHandler fh = new FileHandler();
 
+        /*
         keygen.calculateKeypair();
-        keygen.getPrivateKey();
-        keygen.getPublicKey();
         keygen.writeKeysToFile();
+
 
         char[] encryptCharArray = fh.getTextToEncrypt("text.txt");
 
-
         RSAEncrypt rsae = new RSAEncrypt(keygen.e, keygen.n);
-
         int[] encryptAsciiArray = rsae.stringToAsciiCode(encryptCharArray);
-
         BigInteger[] encryptedTextArray = rsae.encryptText(encryptAsciiArray);
 
-        RSADecrypt rsad = new RSADecrypt(keygen.d, keygen.n);
+        fh.writeEncryptedToFile(encryptedTextArray, "cipher.txt");
 
-        BigInteger asdfasdf = encryptedTextArray[0];
-
-
-       // rsad.decryptText(encryptedTextArray);
-
-        /*
-        FastExponentiation fe = new FastExponentiation();
-        System.out.println(fe.calculateFE(BigInteger.valueOf(13), BigInteger.valueOf(11), 7));
         */
 
 
-    }
 
+        keygen.readSK();
+        RSADecrypt rsad = new RSADecrypt(keygen.d, keygen.n);
+
+        //String decrypted = rsad.decryptText(encryptedTextArray);
+
+        BigInteger[] cipherFromText = fh.readCipherFromFile("cipher.txt");
+        String decrypted = rsad.decryptText(cipherFromText);
+
+        fh.writeFile(decrypted, "text-d.txt");
+
+        System.out.println("Done!");
+
+     }
 }

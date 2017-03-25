@@ -31,16 +31,15 @@ public class RSAEncrypt {
 
     public BigInteger[] encryptText(int[] encryptAsciiArray) {
 
+        System.out.println("Encrypting.");
+
         FastExponentiation fe = new FastExponentiation();
         BigInteger[] encryptedText = new BigInteger[encryptAsciiArray.length];
-
-
-        System.out.println("Modulo: " + n);
 
         int j = 0;
         for(int i : encryptAsciiArray){
 
-            encryptedText[j] = fe.calculateFE(e, n, i);
+            encryptedText[j] = fe.calculateFE(e, n, BigInteger.valueOf(i));
             j++;
         }
 
@@ -49,4 +48,5 @@ public class RSAEncrypt {
         return encryptedText;
 
     }
+
 }

@@ -8,50 +8,40 @@ import java.math.BigInteger;
 public class FastExponentiation {
 
     BigInteger ONE = BigInteger.ONE;
-    BigInteger TWO = ONE.add(ONE);
-    BigInteger ZERO = BigInteger.ZERO;
 
-    public BigInteger calculateFE(BigInteger e, BigInteger n, int character){
+    public BigInteger calculateFE(BigInteger e, BigInteger n, BigInteger character){
 
-        BigInteger base = BigInteger.valueOf(character);
+        BigInteger base = character;
         BigInteger modulo = n;
-        BigInteger exponent = ZERO;
+        BigInteger exponent = e;
         BigInteger result = ONE;
 
-        String iBinary = e.toString(2);
+        int i = 0;
 
-        for (int j = 0; j < iBinary.length(); j++) {
-            if(iBinary.charAt(j) == '1') exponent = exponent.add(ONE);
-        }
-
-
-        while (exponent.compareTo(ZERO) > 0){
-
-            System.out.println("exponent: " + exponent);
-            System.out.println("result: " + result);
-            System.out.println("base: " + base);
-            System.out.println();
-
-            if (exponent.testBit(0)){
-
-                System.out.println("odd " + exponent);
-                System.out.println();
-                result = (result.multiply(base)).mod(modulo);
+        while (i <= e.bitLength()){
+            if (exponent.testBit(i)){
+                result = result.multiply(base).mod(modulo);
             }
-            base = (base.multiply(base)).mod(modulo);
-
-            exponent = exponent.subtract(ONE);
+            base = base.multiply(base).mod(modulo);
+           i++;
         }
-
-
-
-        //  why do I have to do this????
-        //result = (result.multiply(base)).mod(modulo);
-        System.out.println("------------");
-        System.out.println("Result: " + result);
-        System.out.println("base: " + base);
-        System.out.println("------------");
 
         return result;
     }
+
+    private BigInteger fastExponentiation(BigInteger base, BigInteger exponent, BigInteger modulo) {
+        System.out.println("fastExponentiation()");
+        BigInteger check = BigInteger.ONE;
+        BigInteger h = BigInteger.ONE;
+        BigInteger k = base;
+        while (check.compareTo(exponent) < 1){
+            if (!exponent.and(check).equals(BigInteger.ZERO))
+                h = (h.multiply(k)).mod(modulo);
+            k = (k.pow(2)).mod(modulo);
+            check = check.shiftLeft(1);
+        }
+        return h;
+    }
+
+
 }

@@ -63,6 +63,9 @@ public class RSAEncrypt {
             j++;
         }
 
+
+        System.out.println("Encrypted");
+
         return encryptedText;
 
     }

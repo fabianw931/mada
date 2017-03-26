@@ -8,6 +8,7 @@ import java.math.BigInteger;
 public class FastExponentiation {
 
     BigInteger ONE = BigInteger.ONE;
+    BigInteger ZERO = BigInteger.ZERO;
 
 
     /**
@@ -29,7 +30,7 @@ public class FastExponentiation {
         BigInteger result = ONE;
 
         int i = 0;
-        while (exponent.compareTo(BigInteger.ZERO) >= 0) {
+        while (exponent.compareTo(ZERO) >= 0) {
             if (e.testBit(i)){
                 result = result.multiply(base).mod(modulo);
             }

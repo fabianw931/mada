@@ -1,6 +1,5 @@
 package RsaKeygen;
 
-import java.io.File;
 import java.math.BigInteger;
 
 /**
@@ -38,6 +37,8 @@ public class RSADecrypt {
             decryptedText.append((char) fe.calculateFE(d, n, i).intValue());
             j++;
         }
+
+        System.out.println("Decrypted");
 
         return decryptedText.toString();
     }

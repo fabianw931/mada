@@ -23,8 +23,8 @@ public class main {
 
 
 
-        int[] encryptAsciiArray = rsae.getAsciiArrayToEncrypt("text.txt");
-        BigInteger[] encryptedTextArray = rsae.encryptText(encryptAsciiArray);
+        int[] asciiArray = rsae.getAsciiArrayToEncrypt("text.txt");
+        BigInteger[] encryptedTextArray = rsae.encryptText(asciiArray);
         rsae.writeEncryptedTextToFile(encryptedTextArray, "cipher.txt");
         String decrypted = rsad.decryptText(encryptedTextArray);
         rsad.writeDecryptedTextToFile(decrypted, "text-d.txt");

@@ -39,18 +39,6 @@ public class FastExponentiation {
             exponent = exponent.subtract(ONE);
         }
 
-
-        /*
-        while (i <= e.bitLength()){
-            if (exponent.testBit(i)){
-                result = result.multiply(base).mod(modulo);
-            }
-            base = base.multiply(base).mod(modulo);
-            i++;
-        }
-        */
-
-
         return result;
     }
 }

@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.Random;
 
 /**
- * Created by fabia on 24.03.2017.
+ * Created by fabianwildhaber on 24.03.2017.
  *
  * This class is used to generate keypairs, save them or read them from files.
  *

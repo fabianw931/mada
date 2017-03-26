@@ -8,12 +8,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.math.BigInteger;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by fabia on 24.03.2017.
+ * Created by fabianwildhaber on 24.03.2017.
  */
 public class FileHandler {
 

@@ -3,13 +3,13 @@ package RsaKeygen;
 import java.math.BigInteger;
 
 /**
- * Created by fabia on 24.03.2017.
+ * Created by fabianwildhaber on 24.03.2017.
  */
 public class ExtendedEuclideanAlgorithm {
 
 
     /**
-     * Calculates eed.
+     * Calculates eea.
      *
      *
      * @param e

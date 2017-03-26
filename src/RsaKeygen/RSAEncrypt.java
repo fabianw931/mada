@@ -4,7 +4,7 @@ import java.math.BigInteger;
 import java.util.Arrays;
 
 /**
- * Created by fabia on 24.03.2017.
+ * Created by fabianwildhaber on 24.03.2017.
  */
 public class RSAEncrypt {
 

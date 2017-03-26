@@ -17,7 +17,7 @@ public class ExtendedEuclideanAlgorithm {
      * @return
      */
     public BigInteger calculateEea(BigInteger nTotient, BigInteger e){
-
+        System.out.println("Extended Euclidean Algorithm");
         BigInteger a = nTotient;
         BigInteger b = e;
 

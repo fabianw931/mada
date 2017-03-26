@@ -14,34 +14,34 @@ public class main {
         System.out.println("Starting RSA");
 
         RSAKeygen keygen = new RSAKeygen();
-        FileHandler fh = new FileHandler();
+        RSAEncrypt rsae = new RSAEncrypt(keygen.e, keygen.n);
 
-        /*
         keygen.calculateKeypair();
         keygen.writeKeysToFile();
 
-
-        char[] encryptCharArray = fh.getTextToEncrypt("text.txt");
-
-        RSAEncrypt rsae = new RSAEncrypt(keygen.e, keygen.n);
-        int[] encryptAsciiArray = rsae.stringToAsciiCode(encryptCharArray);
-        BigInteger[] encryptedTextArray = rsae.encryptText(encryptAsciiArray);
-
-        fh.writeEncryptedToFile(encryptedTextArray, "cipher.txt");
-
-        */
-
-
-
-        keygen.readSK();
         RSADecrypt rsad = new RSADecrypt(keygen.d, keygen.n);
 
-        //String decrypted = rsad.decryptText(encryptedTextArray);
 
-        BigInteger[] cipherFromText = fh.readCipherFromFile("cipher.txt");
-        String decrypted = rsad.decryptText(cipherFromText);
 
-        fh.writeFile(decrypted, "text-d.txt");
+        int[] encryptAsciiArray = rsae.getAsciiArrayToEncrypt("text.txt");
+        BigInteger[] encryptedTextArray = rsae.encryptText(encryptAsciiArray);
+        rsae.writeEncryptedTextToFile(encryptedTextArray, "cipher.txt");
+        String decrypted = rsad.decryptText(encryptedTextArray);
+        rsad.writeDecryptedTextToFile(decrypted, "text-d.txt");
+        System.out.println("\n" + "Decrypted Text: ");
+        System.out.println(decrypted + "\n");
+
+
+
+        keygen.readPrivateKey("sk_example.txt");
+        RSADecrypt rsad_example = new RSADecrypt(keygen.d, keygen.n);
+
+        BigInteger[] cipherFromText = rsad_example.readCipherFromFile("cipher_example.txt");
+        String decryptedExample = rsad_example.decryptText(cipherFromText);
+        rsad_example.writeDecryptedTextToFile(decryptedExample, "text-d_example.txt");
+
+        System.out.println("\n" + "Decrypted Text Example: ");
+        System.out.println(decryptedExample + "\n");
 
         System.out.println("Done!");
 

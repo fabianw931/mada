@@ -17,7 +17,18 @@ public class RSAEncrypt {
         this.n = n;
     }
 
-    public int[] stringToAsciiCode(char[] textArray){
+
+    /**
+     *
+     * Reads text from a file and converts it to an ascii array
+     *
+     * @param filename
+     * @return int[] asciiArray
+     */
+    public int[] getAsciiArrayToEncrypt(String filename){
+        FileHandler fh = new FileHandler();
+        char[] textArray = fh.getTextToEncrypt(filename);
+
         int[] asciiArray = new int[textArray.length];
 
         int i = 0;
@@ -29,12 +40,21 @@ public class RSAEncrypt {
         return asciiArray;
     }
 
+    /**
+     * Encrypts the text in form of an int[] with ascii code inside.
+     * Encrypts using fast exponentiation algorithm
+     *
+     * @param encryptAsciiArray
+     * @return String encryptedText
+     */
     public BigInteger[] encryptText(int[] encryptAsciiArray) {
 
         System.out.println("Encrypting.");
 
         FastExponentiation fe = new FastExponentiation();
         BigInteger[] encryptedText = new BigInteger[encryptAsciiArray.length];
+
+        System.out.println("Fast Exponentiation");
 
         int j = 0;
         for(int i : encryptAsciiArray){
@@ -43,10 +63,19 @@ public class RSAEncrypt {
             j++;
         }
 
-        System.out.println(Arrays.toString(encryptedText));
-
         return encryptedText;
 
+    }
+
+    /**
+     * Writes the encrypted Text to file
+     *
+     * @param encryptedTextArray
+     * @param s
+     */
+    public void writeEncryptedTextToFile(BigInteger[] encryptedTextArray, String filename) {
+        FileHandler fh = new FileHandler();
+        fh.writeEncryptedTextToFile(encryptedTextArray, filename);
     }
 
 }

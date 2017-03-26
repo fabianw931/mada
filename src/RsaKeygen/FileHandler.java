@@ -18,6 +18,12 @@ import java.util.Map;
 public class FileHandler {
 
 
+    /**
+     * reads text from given file to char array used by RSAEncrypt
+     *
+     * @param filename
+     * @return
+     */
     public char[] getTextToEncrypt(String filename){
 
         char[] textArray = null;
@@ -35,7 +41,6 @@ public class FileHandler {
             }
 
             text = sb.toString();
-
             textArray = text.toCharArray();
 
         } catch (IOException e){
@@ -45,6 +50,13 @@ public class FileHandler {
         return textArray;
     }
 
+
+    /**
+     * Reads key from a given file to HashMap used by RSAKeygen
+     *
+     * @param filename
+     * @return
+     */
     public Map<String, BigInteger> getKeyFromFile(String filename){
 
         Map<String, BigInteger> keyMap= new HashMap<>();
@@ -77,7 +89,13 @@ public class FileHandler {
         return keyMap;
     }
 
-    public void writeEncryptedToFile(BigInteger[] encryptedTextArray, String filename) {
+    /**
+     * Writes the encrypted text fo a given file. used by RSAEncrypt
+     *
+     * @param encryptedTextArray
+     * @param filename
+     */
+    public void writeEncryptedTextToFile(BigInteger[] encryptedTextArray, String filename) {
 
         String[] stringArray = new String[encryptedTextArray.length];
 
@@ -94,6 +112,13 @@ public class FileHandler {
 
     }
 
+
+    /**
+     * reads cipher from a given file. Used by RSADecrypt
+     *
+     * @param filename
+     * @return
+     */
     public BigInteger[] readCipherFromFile(String filename){
         String[] keySplit = null;
 
@@ -126,6 +151,14 @@ public class FileHandler {
         return cipherArray;
     }
 
+
+    /**
+     * Writes any given text to any given file.
+     * In this case used to write decrypted text a file.
+     *
+     * @param content
+     * @param filename
+     */
     public void writeFile(String content, String filename){
         try {
             BufferedWriter bw = new BufferedWriter(new FileWriter(filename));

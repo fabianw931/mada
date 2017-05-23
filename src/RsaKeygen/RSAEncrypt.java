@@ -1,7 +1,6 @@
 package RsaKeygen;
 
 import java.math.BigInteger;
-import java.util.Arrays;
 
 /**
  * Created by fabianwildhaber on 24.03.2017.

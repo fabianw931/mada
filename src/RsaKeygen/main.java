@@ -1,8 +1,6 @@
 package RsaKeygen;
 
-import java.lang.reflect.Array;
 import java.math.BigInteger;
-import java.security.interfaces.RSAKey;
 
 /**
  * Created by fabianwildhaber on 24.03.17.
